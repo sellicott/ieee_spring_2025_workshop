@@ -180,11 +180,15 @@ module clock_wrapper_tb ();
       i_set_hours = 1'h1;
       reset_timeout_counter();
       while (clktime_hours < hours_settime && timeout_counter <= TIMEOUT) begin
-        @(posedge clk_set_stb);
+        while (!clk_set_stb && timeout_counter <= TIMEOUT) begin
+          @(posedge clk);
+        end
         `assert_cond(timeout_counter, <, TIMEOUT);
         $display("Current Set Time: %02d:%02d.%02d", clktime_hours, clktime_minutes, clktime_seconds);
         reset_timeout_counter();
-        repeat(5) @(posedge serial_load);
+        repeat(5) while (!serial_load && timeout_counter <= TIMEOUT) begin
+          @(posedge clk);
+        end
       end
 
       `assert(clktime_hours, hours_settime);
@@ -201,11 +205,15 @@ module clock_wrapper_tb ();
       i_set_minutes = 1'h1;
       reset_timeout_counter();
       while (clktime_minutes != minutes_settime && timeout_counter <= TIMEOUT) begin
-        @(posedge clk_set_stb);
+        while (!clk_set_stb && timeout_counter <= TIMEOUT) begin
+          @(posedge clk);
+        end
         `assert_cond(timeout_counter, <, TIMEOUT);
         $display("Current Set Time: %02d:%02d.%02d", clktime_hours, clktime_minutes, clktime_seconds);
         reset_timeout_counter();
-        repeat(5) @(posedge serial_load);
+        repeat(5) while (!serial_load && timeout_counter <= TIMEOUT) begin
+          @(posedge clk);
+        end
       end
 
       `assert(clktime_minutes, minutes_settime);
@@ -218,8 +226,11 @@ module clock_wrapper_tb ();
   task clock_reset_seconds ();
     begin
       i_set_hours   = 1'h1;
-      i_set_minutes = 1'h1;;
-      repeat(2) @(negedge clk_set_stb);
+      i_set_minutes = 1'h1;
+      reset_timeout_counter();
+      repeat(2) while (!clk_set_stb && timeout_counter <= TIMEOUT) begin
+        @(posedge clk);
+      end
       `assert(clktime_seconds, 6'h0);
       @(posedge clk);
       i_set_hours   = 1'h0;
@@ -241,7 +252,9 @@ module clock_wrapper_tb ();
     begin
       // wait until the outputs are initilized
       reset_timeout_counter();
-      repeat(5) @(posedge serial_load);
+      repeat(5) while (!serial_load && timeout_counter <= TIMEOUT) begin
+        @(posedge clk);
+      end
       i_fast_set = 1'h1;
       // set the hours and minutes
       $display("Set Hours");

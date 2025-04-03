@@ -108,7 +108,7 @@ module tiny_tapeout_tb ();
   wire VGND = 1'b0;
 `endif
 
-  tt_um_digital_clock_example digital_clock (
+  tt_um_ieee_demo digital_clock (
 `ifdef GL_TEST
     .VPWR(VPWR),
     .VGND(VGND),
@@ -243,7 +243,9 @@ module tiny_tapeout_tb ();
           && timeout_counter < timeout
           && update_count < 30) begin
 
-        @(posedge clk_set_stb);
+        while (!clk_set_stb && timeout_counter <= timeout) begin
+          @(posedge clk);
+        end
         $display("Current Set Time: %02d:%02d.%02d",
                  clktime_hours,
                  clktime_minutes,
@@ -265,7 +267,9 @@ module tiny_tapeout_tb ();
           && timeout_counter < timeout
           && update_count < 70) begin
 
-        @(posedge clk_set_stb);
+        while (!clk_set_stb && timeout_counter <= timeout) begin
+          @(posedge clk);
+        end
         $display("Current Set Time: %02d:%02d.%02d",
                  clktime_hours,
                  clktime_minutes,
@@ -304,7 +308,9 @@ module tiny_tapeout_tb ();
           && timeout_counter < timeout 
           && update_count < 30) begin
 
-        @(posedge clk_set_stb);
+        while (!clk_set_stb && timeout_counter <= timeout) begin
+          @(posedge clk);
+        end
         $display("Current Set Time: %02d:%02d.%02d",
                  clktime_hours,
                  clktime_minutes,
@@ -342,7 +348,9 @@ module tiny_tapeout_tb ();
           && timeout_counter <= timeout 
           && update_count < 70) begin
 
-        @(posedge clk_set_stb);
+        while (!clk_set_stb && timeout_counter <= timeout) begin
+          @(posedge clk);
+        end
         `assert_cond(timeout_counter, <, timeout);
         $display("Current Set Time: %02d:%02d.%02d",
                  clktime_hours,
@@ -368,7 +376,9 @@ module tiny_tapeout_tb ();
     begin
       i_set_hours   = 1'h1;
       i_set_minutes = 1'h1;
-      repeat (2) @(posedge clk_set_stb);
+      repeat (2) while (!clk_set_stb && timeout_counter <= TIMEOUT_LONG) begin
+        @(posedge clk);
+      end
       `assert(clktime_seconds, 6'h0);
       @(posedge clk);
       i_set_hours = 1'h0;
@@ -390,7 +400,9 @@ module tiny_tapeout_tb ();
     begin
       // wait until the outputs are initilized
       reset_timeout_counter();
-      @(posedge clk_set_stb);
+      while (!clk_set_stb && timeout_counter <= TIMEOUT_LONG) begin
+        @(posedge clk);
+      end
       i_fast_set = 1'h1;
       reset_clock();
 
@@ -408,11 +420,15 @@ module tiny_tapeout_tb ();
       $display("Time Set: %02d:%02d.%02d", clktime_hours, clktime_minutes, clktime_seconds);
 
       $display("Run Clock");
-      repeat (61) @(posedge clk_1hz_stb);
+      repeat (61) while (!clk_1hz_stb && timeout_counter <= TIMEOUT_LONG) begin
+        @(posedge clk);
+      end
       $display("Time Set: %02d:%02d.%02d", clktime_hours, clktime_minutes, clktime_seconds);
 
       i_fast_set = 1'h0;
-      @(posedge clk_set_stb);
+      while (!clk_set_stb && timeout_counter <= TIMEOUT_LONG) begin
+        @(posedge clk);
+      end
 
       // try rolling over the hours
       $display("Set Hours");
@@ -424,7 +440,9 @@ module tiny_tapeout_tb ();
       $display("Time Set: %02d:%02d.%02d", clktime_hours, clktime_minutes, clktime_seconds);
 
       $display("Run Clock");
-      repeat (61) @(posedge clk_1hz_stb);
+      repeat (61) while (!clk_1hz_stb && timeout_counter <= TIMEOUT_LONG) begin
+        @(posedge clk);
+      end
       $display("Time Set: %02d:%02d.%02d", clktime_hours, clktime_minutes, clktime_seconds);
     end
   endtask

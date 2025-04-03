@@ -59,7 +59,13 @@ always @(posedge i_clk) begin
   end
 end
 
-assign o_1hz_stb = counter[2];
+stb_gen gen_1hz_stb (
+  .i_reset_n(i_reset_n),
+  .i_clk(i_clk),
+  .i_sig(counter[14]),
+  .o_sig_stb(o_1hz_stb)
+);
+
 
 endmodule
 

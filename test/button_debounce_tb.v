@@ -14,10 +14,33 @@
 `default_nettype none
 `timescale 1ns / 1ns
 
+// Assert helpers for ending the simulation early in failure
+`define assert(signal, value) \
+  if (signal !== value) begin \
+    $display("ASSERTION FAILED in %m:\nEquality"); \
+    $display("\t%d (expected) != %d (actual)", value, signal); \
+    close(); \
+  end
+
+`define assert_cond(signal, cond, value) \
+  if (!(signal cond value)) begin \
+    $display("ASSERTION FAILED in %m:\nCondition:"); \
+    $display("\n\texpected: %d\n\tactual: %d", value, signal); \
+    close(); \
+  end
+
+`define assert_timeout(max_count) \
+  if (!(timeout_counter < max_count)) begin \
+    $display("ASSERTION FAILED in %m\nTimeout:"); \
+    $display("\tspecified max count: %d\n\tactual count: %d", max_count, timeout_counter); \
+    close(); \
+  end
+
 module button_debounce_tb ();
 
   // setup file dumping things
   localparam STARTUP_DELAY = 5;
+  localparam TIMEOUT=40000;
   initial begin
     $dumpfile("button_debounce_tb.fst");
     $dumpvars(0, button_debounce_tb);
@@ -44,6 +67,14 @@ module button_debounce_tb ();
     clk <= ~clk;
   end
 
+  reg run_timeout_counter;
+  reg [15:0] timeout_counter = 0;
+  always @(posedge clk) begin
+    if (run_timeout_counter)
+      timeout_counter <= timeout_counter + 1'd1;
+    else 
+      timeout_counter <= 16'h0;
+  end
 
   // model specific signals
   localparam REFCLK_PERIOD = 113;
@@ -202,23 +233,34 @@ module button_debounce_tb ();
 
   task run_test();
     begin
-      repeat(6) @(posedge clk_debounce_stb);
+      repeat(6) wait_clk_debounce_stb(TIMEOUT);
       bounce_fast_set(1);
-      repeat(6) @(posedge clk_debounce_stb);
+      repeat(6) wait_clk_debounce_stb(TIMEOUT);
 
       bounce_set_hours(1);
-      repeat(6) @(posedge clk_debounce_stb);
+      repeat(6) wait_clk_debounce_stb(TIMEOUT);
 
       bounce_fast_set(0);
       bounce_set_minutes(1);
-      repeat(6) @(posedge clk_debounce_stb);
+      repeat(6) wait_clk_debounce_stb(TIMEOUT);
 
       bounce_set_hours(0);
-      repeat(6) @(posedge clk_debounce_stb);
+      repeat(6) wait_clk_debounce_stb(TIMEOUT);
 
       bounce_set_minutes(0);
-      repeat(6) @(posedge clk_debounce_stb);
-      repeat(6) @(posedge clk_debounce_stb);
+      repeat(6) wait_clk_debounce_stb(TIMEOUT);
+      repeat(6) wait_clk_debounce_stb(TIMEOUT);
+    end
+  endtask
+
+  task wait_clk_debounce_stb(
+    input integer timeout
+  );
+    begin: wait_clk_debounce_stb
+      while (!clk_debounce_stb && timeout_counter <= timeout) begin
+          @(posedge clk);
+      end
+      `assert_timeout(timeout);
     end
   endtask
 
@@ -238,6 +280,15 @@ module button_debounce_tb ();
       $display("Closing");
       repeat(10) @(posedge clk);
       $finish;
+    end
+  endtask
+
+  task reset_timeout_counter();
+    begin
+      @(posedge clk);
+      run_timeout_counter = 1'd0;
+      @(posedge clk);
+      run_timeout_counter = 1'd1;
     end
   endtask
 
