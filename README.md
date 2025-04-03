@@ -36,13 +36,21 @@ Incremental complexity increase from the 8-bit counter demo.
 Iteratively generate numbers from the fibonacci sequence. Demonstrates a combination of sequential and 
 combinatorial logic. This project includes both source files and a testbench.
 
-TODO: Link to source files and testbench files
+- Project setup in [info.yaml](info.yaml). This lists the source files and incidental information.  
+  Requires pointing Tiny Tapeout to [demo_project_1.v](src/demo_project_1.v) and adding [fib.v](src/fib.v)  
+  to the source list.
+- Source code in [src/demo_project_1.v](src/demo_project_1.v) for the top level project code.
+- Source code in [src/fib.v](src/fib.v) for the fibonacci generator module code.
+- Testbench code in [test/tb_fib.v](test/tb_fib.v). Initilizes the top level module and runs tests.
+- Reuses cocotb testbench code in [test/test.py](test/test.py)
 
-TODO: More detailed steps
 Requires participants to:
-1. Modify [info.yaml](info.yaml) to include fibonacci sequence module
-2. Rename the old testbench to `tb.v.old` and link to the fibonacci sequence testbench to `tb.v`
-3. Rerun the github actions to build the new module
+1. Modify [info.yaml](info.yaml) to include fibonacci sequence module `fib.v` and `demo_project_1.v`
+2. Update pin documentation in [info.yaml](info.yaml)
+3. Rename the old testbench `tb.v` to `counter_tb.v`
+4. Rename `fib_tb.v` to the fibonacci sequence testbench to `tb.v`
+4. Update pin documentation in [info.yaml](info.yaml)
+5. Rerun the github actions to build the new module
 
 ### Demo 2: Digital Clock Project
 This is a more complicated (but not too complicated) project that is left as an excercise for the participant.
