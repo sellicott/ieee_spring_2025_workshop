@@ -18,8 +18,8 @@ module tb ();
   reg ena   = 1;
 
   // Wire up the inputs and outputs:
-  reg [7:0] ui_in;
-  reg [7:0] uio_in;
+  reg [7:0] ui_in  = 0;
+  reg [7:0] uio_in = 0;
   wire [7:0] uo_out;
   wire [7:0] uio_out;
   wire [7:0] uio_oe;
@@ -66,7 +66,7 @@ module tb ();
     end
 
     // disable the counter
-    ui_in[0] = 1'h1;
+    ui_in[0] = 1'h0;
     // run for 10 cycles disabled 
     for ( i = 0; i < 5; i = i + 1) begin 
       @(posedge clk);

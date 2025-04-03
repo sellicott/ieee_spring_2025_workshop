@@ -68,7 +68,7 @@ always @(posedge i_clk) begin
     end
     // if the counter is enabled then count up
     else if (i_en) begin
-        count_reg <= count_reg + 7'h1;
+        count_reg <= count_reg + 8'h1;
     end
 end
 
