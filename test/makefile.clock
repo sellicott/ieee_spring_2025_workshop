@@ -1,18 +1,18 @@
 SRC_DIR = $(PWD)/../src
 
 # List of testbenches to run automatically
-SRC_TESTBENCHES := clk_gen_tb.v
-SRC_TESTBENCHES += button_debounce_tb.v
-SRC_TESTBENCHES += clock_register_tb.v
-SRC_TESTBENCHES += binary_to_bcd_tb.v
-SRC_TESTBENCHES += bcd_to_7seg_tb.v
-SRC_TESTBENCHES += clock_to_bcd_tb.v
-SRC_TESTBENCHES += max7219_tb.v
-SRC_TESTBENCHES += max7219_settings_tb.v
-SRC_TESTBENCHES += output_wrapper_tb.v
-SRC_TESTBENCHES += display_controller_tb.v
-SRC_TESTBENCHES += clock_wrapper_tb.v
-SRC_TESTBENCHES += tiny_tapeout_tb.v
+SRC_TESTBENCHES := clock_testbenches/clk_gen_tb.v
+SRC_TESTBENCHES += clock_testbenches/button_debounce_tb.v
+SRC_TESTBENCHES += clock_testbenches/clock_register_tb.v
+SRC_TESTBENCHES += clock_testbenches/binary_to_bcd_tb.v
+SRC_TESTBENCHES += clock_testbenches/bcd_to_7seg_tb.v
+SRC_TESTBENCHES += clock_testbenches/clock_to_bcd_tb.v
+SRC_TESTBENCHES += clock_testbenches/max7219_tb.v
+SRC_TESTBENCHES += clock_testbenches/max7219_settings_tb.v
+SRC_TESTBENCHES += clock_testbenches/output_wrapper_tb.v
+SRC_TESTBENCHES += clock_testbenches/display_controller_tb.v
+SRC_TESTBENCHES += clock_testbenches/clock_wrapper_tb.v
+SRC_TESTBENCHES += clock_testbenches/tiny_tapeout_tb.v
 
 # Generate lists of output files from the list of testbenches
 TESTBENCH_FST = $(SRC_TESTBENCHES:.v=.fst)
