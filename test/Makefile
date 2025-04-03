@@ -1,5 +1,5 @@
 # Makefile
-CLOCK_PROJECT = no
+CLOCK_PROJECT = yes
 
 ifneq ($(CLOCK_PROJECT),yes)
 
