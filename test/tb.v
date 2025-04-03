@@ -29,7 +29,7 @@
 module tb ();
   // cocotb interface signals
   reg test_done = 0;
-  reg dummy_clk = 0;
+  reg clk_dummy = 0;
   // driven by cocotb to assert control of the testing
   reg cocotb_tb = 0; 
 
