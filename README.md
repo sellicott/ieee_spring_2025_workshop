@@ -23,7 +23,13 @@ This template is split into several demo projects of increasing complexity.
 The initial demo is of a simple 8-bit up counter that tests that the Tiny Tapeout flow is working correctly.
 This project includes both the source files and the testbench.
 
-TODO: link to source files and testbench files.
+This project is split into several files:
+- Project setup in [info.yaml](info.yaml). This lists the source files and incidental information.
+- Source code in [src/project.v](src/project.v). Defines the top level module and counter module.
+- Verilog testbench code in [test/tb.v](test/tb.v). Initilizes the top level module and runs the test
+- [Cocotb](https://docs.cocotb.org/en/stable/) testbench file. Python based testbench utility, used as a wrapper here.  
+> [!NOTE]
+> Cocotb does not work well with local simulation tools on Windows
 
 ### Demo 1: Fibonacci Sequence Generator
 Incremental complexity increase from the 8-bit counter demo.
@@ -154,6 +160,7 @@ The GitHub action will automatically build the ASIC files using [OpenLane](https
 - [Learn how semiconductors work](https://tinytapeout.com/siliwiz/)
 - [Join the community](https://tinytapeout.com/discord)
 - [Build your design locally](https://www.tinytapeout.com/guides/local-hardening/)
+- [Cocotb Documentation](https://docs.cocotb.org/en/stable/)
 
 ## What next?
 
