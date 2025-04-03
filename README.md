@@ -1,6 +1,6 @@
 ![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/test/badge.svg) ![](../../workflows/fpga/badge.svg)
 
-# Demo Project for the Columbus SSCS/CAS IEEE Chapter
+# Columbus SSCS/CAS IEEE Chapter Demo Project
 > [!NOTE]
 > Example Project for Spring 2025 Columbus SSCS/CAS Tiny Tapeout Workshop
 > This is a demonstration Tiny Tapeout project for the workshop series held by the
@@ -11,6 +11,12 @@ The goal of this project is to demonstrate the Tiny Tapeout flow starting from
 a Verilog design to build a GDS file for manufacturing. 
 - [Read the project documentation](docs/info.md)
 
+### Getting Started
+1. Use this template (make a new repo based on this template)
+2. Enable GitHub Pages for your repo. See [Enabling GitHub Pages](https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part)  
+![](docs/enable_github_pages.png)
+
+## Demonstration Projects
 This template is split into several demo projects of increasing complexity.
 
 ### Demo 0: 8-bit Counter
@@ -47,9 +53,6 @@ Additionally, the testbench for `clk_gen_template.v` is incomplete
 > The [info.yaml](info.yaml) file points to the wrong filename for both of these files, that also
 > needs to be adjusted before all tests complete successfully.
 
-# Getting Started
-1. Use this template (make a new repo based on this template)
-2. Enable GitHub Pages for your repo. See [Enabling GitHub Pages](https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part)
 
 # Digital Clock Project
 

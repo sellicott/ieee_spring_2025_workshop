@@ -5,7 +5,7 @@
 
 `default_nettype none
 
-module tt_um_example (
+module tt_um_ieee_demo (
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
     input  wire [7:0] uio_in,   // IOs: Input path
@@ -16,12 +16,57 @@ module tt_um_example (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-  // All output pins must be assigned. If not used, assign to 0.
-  assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
-  assign uio_out = 0;
-  assign uio_oe  = 0;
+// define wires for the counter module
+wire       count_en  = ui_in[0];
+wire [7:0] count_out = uo_out[7:0];
 
-  // List all unused inputs to prevent warnings
-  wire _unused = &{ena, clk, rst_n, 1'b0};
+// instantiate counter module
+counter_8bit counter_inst (
+    .i_reset_n(rst_n),
+    .i_clk(clk),
+    .i_en(count_en),
+    .o_count(count_out)
+);
+
+// All output pins must be assigned. If not used, assign to 0.
+assign uio_out = 0;
+assign uio_oe  = 0;
+
+// List all unused inputs to prevent warnings
+wire _unused = &{ena, 1'b0};
+
+endmodule
+
+// very basic counter module
+module counter_8bit (
+    i_reset_n,
+    i_clk,
+    // only count when enabled
+    i_en,
+    // output
+    o_count
+);
+// define global inputs
+input wire i_reset_n;
+input wire i_clk;
+
+// define module inputs
+input wire i_en;
+
+// define module outputs
+output wire [7:0] o_count;
+
+// counter implementation
+reg [7:0] count_reg;
+always @(posedge i_clk) begin
+    // reset counter if i_reset_n is low
+    if (!i_reset_n) begin
+        count_reg <= 7'h0;
+    end
+    // if the counter is enabled then count up
+    else if (i_en) begin
+        count_reg <= count_reg + 7'h1;
+    end
+end
 
 endmodule
