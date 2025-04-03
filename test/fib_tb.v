@@ -105,6 +105,9 @@ module tb ();
     // test the first 10 fibonacci sequence numbers
     test_n_fib(10, TIMEOUT);
 
+    // finish test successfully for cocotb
+    test_done = 1;
+
     // finish the simulation
     close();
   end
