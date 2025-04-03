@@ -17,26 +17,26 @@ project:
   # Source files must be in ./src and you must list each source file separately, one per line.
   # Don't forget to also update `PROJECT_SOURCES` in test/Makefile.
   source_files:
-  #- "demo_project_0.v"
+  - "demo_project_0.v"
 
   ## source files for the fibonacci sequence generator
   #- "demo_project_1.v"
   #- "fib.v"
 
   ## source files for the clock project
-  - "demo_project_2.v"
-  - "clock_wrapper.v"
-  - "input/refclk_sync.v"
-  - "input/clk_gen.v"
-  - "input/button_debounce.v"
-  - "core/clock_register.v"
-  - "core/decimal_point_controller.v"
-  - "core/display_controller.v"
-  - "core/output_wrapper.v"
-  - "output/clock_to_bcd.v"
-  - "output/binary_to_bcd.v"
-  - "output/max7219_settings.v"
-  - "output/max7219.v"
+  #- "demo_project_2.v"
+  #- "clock_wrapper.v"
+  #- "input/refclk_sync.v"
+  #- "input/clk_gen.v"
+  #- "input/button_debounce.v"
+  #- "core/clock_register.v"
+  #- "core/decimal_point_controller.v"
+  #- "core/display_controller.v"
+  #- "core/output_wrapper.v"
+  #- "output/clock_to_bcd.v"
+  #- "output/binary_to_bcd.v"
+  #- "output/max7219_settings.v"
+  #- "output/max7219.v"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).

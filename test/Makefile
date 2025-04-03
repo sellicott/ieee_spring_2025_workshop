@@ -1,5 +1,6 @@
 # Makefile
-CLOCK_PROJECT = yes
+CLOCK_PROJECT = no
+FIBONACCI_PROJECT = no
 
 ifeq ($(CLOCK_PROJECT),yes)
 
@@ -15,10 +16,13 @@ SIM ?= icarus
 TOPLEVEL_LANG ?= verilog
 SRC_DIR = $(PWD)/../src
 
+ifneq ($(FIBONACCI_PROJECT),yes)
 PROJECT_SOURCES = demo_project_0.v
 
+else
 # Uncomment for the fibonacci sequence project
-# PROJECT_SOURCES = demo_project_1.v fib.v
+PROJECT_SOURCES = demo_project_1.v fib.v
+endif 
 
 ifneq ($(GATES),yes)
 
