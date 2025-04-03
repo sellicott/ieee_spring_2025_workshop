@@ -7,6 +7,7 @@
 module tb ();
   // cocotb interface signals
   reg test_done = 0;
+  reg clk_dummy = 0;
 
   // global testbench signals
   localparam CLK_PERIOD = 100;
