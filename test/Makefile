@@ -5,12 +5,11 @@
 SIM ?= icarus
 TOPLEVEL_LANG ?= verilog
 SRC_DIR = $(PWD)/../src
-# PROJECT_SOURCES = demo_project_0.v
+
+PROJECT_SOURCES = demo_project_0.v
 
 # Uncomment for the fibonacci sequence project
-PROJECT_SOURCES = demo_project_1.v fib.v
-
-# Uncomment for digital clock project
+# PROJECT_SOURCES = demo_project_1.v fib.v
 
 ifneq ($(GATES),yes)
 
