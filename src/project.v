@@ -18,7 +18,7 @@ module tt_um_ieee_demo (
 
 // define wires for the counter module
 wire       count_en  = ui_in[0];
-wire [7:0] count_out = uo_out[7:0];
+wire [7:0] count_out;
 
 // instantiate counter module
 counter_8bit counter_inst (
@@ -28,12 +28,15 @@ counter_8bit counter_inst (
     .o_count(count_out)
 );
 
+// assign output wires
+assign uo_out[7:0] = count_out;
+
 // All output pins must be assigned. If not used, assign to 0.
 assign uio_out = 0;
 assign uio_oe  = 0;
 
 // List all unused inputs to prevent warnings
-wire _unused = &{ena, 1'b0};
+wire _unused = &{ena, ui_in[7:1], 1'b0};
 
 endmodule
 
