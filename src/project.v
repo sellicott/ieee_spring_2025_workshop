@@ -61,12 +61,15 @@ reg [7:0] count_reg;
 always @(posedge i_clk) begin
     // reset counter if i_reset_n is low
     if (!i_reset_n) begin
-        count_reg <= 7'h0;
+        count_reg <= 8'h0;
     end
     // if the counter is enabled then count up
     else if (i_en) begin
         count_reg <= count_reg + 7'h1;
     end
 end
+
+// attach the counter register to the output wires
+assign o_count[7:0] = count_reg[7:0];
 
 endmodule
