@@ -1,7 +1,7 @@
 # Makefile
 CLOCK_PROJECT = yes
 
-ifneq ($(CLOCK_PROJECT),yes)
+ifeq ($(CLOCK_PROJECT),yes)
 
 # Only use icarus verilog for running the digital clock project
 include makefile.clock
