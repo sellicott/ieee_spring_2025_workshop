@@ -45,3 +45,20 @@ jobs:
           path: |
             test/tb.vcd
             test/results.xml
+
+      - name: upload clock vcd
+        if: success() || failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: simulation traces
+          path: |
+            test/clk_gen_tb.fst
+            test/button_debounce_tb.fst
+            test/clock_register_tb.fst
+            test/binary_to_bcd_tb.fst
+            test/bcd_to_7seg_tb.fst
+            test/clock_to_bcd_tb.fst
+            test/max7219_tb.fst
+            test/max7219_settings_tb.fst
+            test/output_wrapper_tb.fst
+            test/logfile.txt

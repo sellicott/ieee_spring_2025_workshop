@@ -1,4 +1,13 @@
 # Makefile
+CLOCK_PROJECT = no
+
+ifneq ($(CLOCK_PROJECT),yes)
+
+# Only use icarus verilog for running the digital clock project
+include makefile.clock
+
+else
+
 # See https://docs.cocotb.org/en/stable/quickstart.html for more info
 
 # defaults
@@ -46,3 +55,5 @@ MODULE = test
 
 # include cocotb's make rules to take care of the simulator setup
 include $(shell cocotb-config --makefiles)/Makefile.sim
+
+endif # end non clock-project
