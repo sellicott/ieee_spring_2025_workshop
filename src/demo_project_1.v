@@ -37,4 +37,7 @@ module tt_um_ieee_demo (
     assign uio_out[7:2] = 6'h0;
     assign uio_out[0]   = 1'h0;
 
+    // List all unused inputs to prevent warnings
+    wire _unused = &{ena,  uio_in[7:1], 1'b0};
+
 endmodule

@@ -42,6 +42,12 @@ module tb ();
   reg rst_n = 0;
   reg ena = 1;
 
+// extra signals for doing gate level simulations
+`ifdef GL_TEST
+  wire VPWR = 1'b1;
+  wire VGND = 1'b0;
+`endif
+
   // Wire up the inputs and outputs:
   wire [7:0] ui_in;
   wire [7:0] uio_in;
@@ -69,8 +75,8 @@ module tb ();
 
       // Include power ports for the Gate Level test:
 `ifdef GL_TEST
-      .VPWR(1'b1),
-      .VGND(1'b0),
+      .VPWR(VPWR),
+      .VGND(VGND),
 `endif
 
       .ui_in  (ui_in),    // Dedicated inputs
